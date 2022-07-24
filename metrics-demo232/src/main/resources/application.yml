@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: metric-232
+
+server:
+  port: 9998
+  #暴露端口9999（此端口需不同于rest端口），如端口冲突可更换其他端口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+      base-path: /
+      path-mapping:
+        prometheus: metrics
+ # http://127.0.0.1:9998/metrics
+
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
