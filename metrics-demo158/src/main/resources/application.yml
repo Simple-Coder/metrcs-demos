@@ -1,0 +1,12 @@
+#暴露端口9999（此端口需不同于rest端口），如端口冲突可更换,也可以不单独配置端口，那么访问的和rest访问同一个端口
+management:
+  security:
+    enabled: false
+  port: 9999
+#所有端点关闭，只开放prometheus端点
+endpoints:
+  enabled: false
+  prometheus:
+    enabled: true
+server:
+  port: 8989
