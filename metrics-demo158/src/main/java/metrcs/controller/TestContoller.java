@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequestMapping("/metric1")
 public class TestContoller {
+    //  http:localhost:8989/metric1/a
     @GetMapping("/a")
     public String a() {
         return Thread.currentThread().getName();
