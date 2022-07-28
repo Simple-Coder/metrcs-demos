@@ -1,4 +1,4 @@
-package metrcs.controller;
+package com.metrics.controller;
 
 import com.dtp.core.DtpRegistry;
 import com.dtp.core.thread.DtpExecutor;

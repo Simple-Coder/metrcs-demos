@@ -1,4 +1,4 @@
-package metrcs.config;
+package com.metrics.config;
 
 import com.dtp.core.support.DynamicTp;
 import com.dtp.core.support.ThreadPoolBuilder;

@@ -65,7 +65,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.sohu.ipseeker.wrapper.IpSeekerWrapperApplication</mainClass>
+                    <mainClass>com.metrics.MetricsDemoApp</mainClass>
                     <addResources>false</addResources>
                     <executable>true</executable>
                 </configuration>
