@@ -9,9 +9,13 @@ import com.metrics.config.PrometheusMetricsInterceptor;
 //import io.prometheus.client.spring.boot.EnablePrometheusEndpoint;
 //import io.prometheus.client.spring.boot.EnableSpringBootMetricsCollector;
 //import io.prometheus.client.spring.web.EnablePrometheusTiming;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.spring.autoconfigure.MeterRegistryCustomizer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -43,10 +47,10 @@ public class MetricsDemoApp158 {
 //    public void run(String... strings) throws Exception {
 //        DefaultExports.initialize();
 //    }
-//    @Bean
-//    MeterRegistryCustomizer meterRegistryCustomizer(@Value("${spring.application.name}")String applicationName, MeterRegistry meterRegistry) {
-//        return meterRegistry1 -> {
-//            meterRegistry.config().commonTags("application", applicationName);
-//        };
-//    }
+    @Bean
+    MeterRegistryCustomizer meterRegistryCustomizer(@Value("${spring.application.name}")String applicationName, MeterRegistry meterRegistry) {
+        return meterRegistry1 -> {
+            meterRegistry.config().commonTags("application", applicationName);
+        };
+    }
 }
