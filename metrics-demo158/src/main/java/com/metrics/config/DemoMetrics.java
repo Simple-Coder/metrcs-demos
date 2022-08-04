@@ -16,6 +16,7 @@ public class DemoMetrics implements MeterBinder {
 
     @Override
     public void bindTo(MeterRegistry meterRegistry) {
+
         Gauge.builder("demo.count", count, c -> c.incrementAndGet())
                 .tags("host", "localhost")
                 .description("demo of custom meter binder")
