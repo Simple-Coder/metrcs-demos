@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -28,6 +29,7 @@ import java.io.IOException;
 //@EnablePrometheusEndpoint
 //@EnableSpringBootMetricsCollector
 @SpringBootApplication
+@EnableHystrix
 //public class MetricsDemoApp158 extends WebMvcConfigurerAdapter implements CommandLineRunner {
 public class MetricsDemoApp158 {
 //    @Override
@@ -47,10 +49,10 @@ public class MetricsDemoApp158 {
 //    public void run(String... strings) throws Exception {
 //        DefaultExports.initialize();
 //    }
-    @Bean
-    MeterRegistryCustomizer meterRegistryCustomizer(@Value("${spring.application.name}")String applicationName, MeterRegistry meterRegistry) {
-        return meterRegistry1 -> {
-            meterRegistry.config().commonTags("application", applicationName);
-        };
-    }
+//    @Bean
+//    MeterRegistryCustomizer meterRegistryCustomizer(@Value("${spring.application.name}")String applicationName, MeterRegistry meterRegistry) {
+//        return meterRegistry1 -> {
+//            meterRegistry.config().commonTags("application", applicationName);
+//        };
+//    }
 }

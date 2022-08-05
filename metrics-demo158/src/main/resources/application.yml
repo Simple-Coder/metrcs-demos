@@ -5,10 +5,10 @@ management:
   port: 9999
 #
 ##所有端点关闭，只开放prometheus端点
-endpoints:
-  enabled: true
-  prometheus:
-    enabled: true
+#endpoints:
+#  enabled: true
+#  prometheus:
+#    enabled: true
 server:
   port: 8989
 spring:
