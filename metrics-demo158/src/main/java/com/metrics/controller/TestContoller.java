@@ -3,6 +3,7 @@ package com.metrics.controller;
 //import io.prometheus.client.spring.web.PrometheusTimeMethod;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.RandomUtil;
+import com.netflix.discovery.DiscoveryClient;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Metrics;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.Collections;
 
 /**
@@ -30,6 +32,9 @@ public class TestContoller {
     Histogram user_hist_help = Histogram.build("user_histogram_test", "user_hist_help").buckets(100, 200, 300).create();
     @Autowired
     private PrometheusMeterRegistry meterRegistry;
+
+    @Autowired(required = false)
+    private DiscoveryClient discoveryClient;
     //
     @PostConstruct
     public void init(){

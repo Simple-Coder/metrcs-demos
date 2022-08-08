@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -30,6 +31,7 @@ import java.io.IOException;
 //@EnableSpringBootMetricsCollector
 @SpringBootApplication
 @EnableHystrix
+@EnableDiscoveryClient
 //public class MetricsDemoApp158 extends WebMvcConfigurerAdapter implements CommandLineRunner {
 public class MetricsDemoApp158 {
 //    @Override

@@ -37,21 +37,27 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>org.xd</groupId>
-            <artifactId>xd-metrics</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
 <!--        <dependency>-->
-<!--            <groupId>com.sohu</groupId>-->
-<!--            <artifactId>hudong-metrics</artifactId>-->
+<!--            <groupId>org.xd</groupId>-->
+<!--            <artifactId>xd-metrics</artifactId>-->
 <!--            <version>1.0-SNAPSHOT</version>-->
 <!--        </dependency>-->
+        <dependency>
+            <groupId>com.sohu</groupId>
+            <artifactId>hudong-metrics</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!--cloud组件 start -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-hystrix</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
+
         <!--cloud组件 end -->
 <!--        &lt;!&ndash; https://mvnrepository.com/artifact/io.prometheus/simpleclient_spring_boot &ndash;&gt;-->
 <!--        <dependency>-->
