@@ -1,0 +1,110 @@
+# my global config
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+# - "first_rules.yml"
+# - "second_rules.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "prometheus"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["localhost:9090"]
+  - job_name: "springboottest1"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+    metrics_path: '/prometheus'
+    static_configs:
+      - targets: ["10.2.9.174:9999"]
+  - job_name: "springboottest2"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+    metrics_path: '/prometheus'
+    static_configs:
+      - targets: ["10.2.9.174:9997"]
+  # Discover Eureka services to scrape.
+  - job_name: 'eureka'
+
+    # Scrape Eureka itself to discover new services.
+    eureka_sd_configs:
+      - server: 'http://eureka7001.com:7001/eureka'
+
+    relabel_configs:
+      - source_labels: ["__meta_eureka_app_instance_metadata_prometheus_path"]
+        action: replace
+        target_label: __metrics_path__
+        regex: (.+)
+      - source_labels: [__address__, __meta_eureka_app_instance_metadata_prometheus_port]
+        action: replace
+        regex: ([^:]+)(?::\d+)?;(\d+)
+        replacement: $1:$2
+        target_label: __address__
+      # You can use Eureka's application instance metadata.
+      # If you are using SpringBoot, you can add metadata using eureka.instance.metadataMap like this:
+      # application.yaml (spring-boot)
+      # eureka:
+      #  instance:
+      #    metadataMap:
+      #      "prometheus.scrape": "true"
+      #      "prometheus.path": "/actuator/prometheus"
+      #      "prometheus.port": "8080"
+      #
+      #
+      # Example relabel to scrape only application that have
+      # "prometheus.scrape = true" metadata.
+      #  - source_labels: [__meta_eureka_app_instance_metadata_prometheus_scrape]
+      #    action: keep
+      #    regex: true
+
+      #
+      # application.yaml (spring-boot)
+      # eureka:
+      #  instance:
+      #    metadataMap:
+      #      "prometheus.scrape": "true"
+      #
+      # Example relabel to customize metric path based on application
+      # "prometheus.path = <metric path>" annotation.
+      #  - source_labels: [__meta_eureka_app_instance_metadata_prometheus_path]
+      #    action: replace
+      #    target_label: __metrics_path__
+      #    regex: (.+)
+      #
+      # application.yaml (spring-boot)
+      # eureka:
+      #  instance:
+      #    metadataMap:
+      #      "prometheus.path": "/actuator/prometheus"
+      #
+      # Example relabel to scrape only single, desired port for the application
+      # based on application "prometheus.port = <port>" metadata.
+      #  - source_labels: [__address__, __meta_eureka_app_instance_metadata_prometheus_port]
+      #    action: replace
+      #    regex: ([^:]+)(?::\d+)?;(\d+)
+      #    replacement: $1:$2
+      #    target_label: __address__
+      #
+      # application.yaml (spring-boot)
+      # eureka:
+      #  instance:
+      #    metadataMap:
+      #      "prometheus.port": "8080"
