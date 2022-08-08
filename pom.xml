@@ -11,6 +11,7 @@
     <modules>
         <module>metrics-demo158</module>
         <module>metrics-demo232</module>
+        <module>metrics-eureka-server</module>
     </modules>
 
     <properties>
