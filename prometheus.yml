@@ -26,85 +26,40 @@ scrape_configs:
     # scheme defaults to 'http'.
 
     static_configs:
-      - targets: ["localhost:9090"]
-  - job_name: "springboottest1"
+      - targets: ["127.0.0.1:9090"]
+  - job_name: "feed-web-test"
 
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
     metrics_path: '/prometheus'
     static_configs:
-      - targets: ["10.2.9.174:9999"]
-  - job_name: "springboottest2"
+      - targets: ["10.19.95.15:18082"]
+  - job_name: "feed-service-test"
 
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
     metrics_path: '/prometheus'
     static_configs:
-      - targets: ["10.2.9.174:9997"]
+      - targets: ["10.19.95.15:18079"]
   # Discover Eureka services to scrape.
   - job_name: 'eureka'
-
+    metrics_path: '/prometheus'
     # Scrape Eureka itself to discover new services.
     eureka_sd_configs:
-      - server: 'http://eureka7001.com:7001/eureka'
+      - server: '***'
 
     relabel_configs:
+      # 重写 metrics 的路径
       - source_labels: ["__meta_eureka_app_instance_metadata_prometheus_path"]
         action: replace
         target_label: __metrics_path__
         regex: (.+)
+        # 重写管理端口
       - source_labels: [__address__, __meta_eureka_app_instance_metadata_prometheus_port]
         action: replace
         regex: ([^:]+)(?::\d+)?;(\d+)
         replacement: $1:$2
         target_label: __address__
-      # You can use Eureka's application instance metadata.
-      # If you are using SpringBoot, you can add metadata using eureka.instance.metadataMap like this:
-      # application.yaml (spring-boot)
-      # eureka:
-      #  instance:
-      #    metadataMap:
-      #      "prometheus.scrape": "true"
-      #      "prometheus.path": "/actuator/prometheus"
-      #      "prometheus.port": "8080"
-      #
-      #
-      # Example relabel to scrape only application that have
-      # "prometheus.scrape = true" metadata.
-      #  - source_labels: [__meta_eureka_app_instance_metadata_prometheus_scrape]
-      #    action: keep
-      #    regex: true
-
-      #
-      # application.yaml (spring-boot)
-      # eureka:
-      #  instance:
-      #    metadataMap:
-      #      "prometheus.scrape": "true"
-      #
-      # Example relabel to customize metric path based on application
-      # "prometheus.path = <metric path>" annotation.
-      #  - source_labels: [__meta_eureka_app_instance_metadata_prometheus_path]
-      #    action: replace
-      #    target_label: __metrics_path__
-      #    regex: (.+)
-      #
-      # application.yaml (spring-boot)
-      # eureka:
-      #  instance:
-      #    metadataMap:
-      #      "prometheus.path": "/actuator/prometheus"
-      #
-      # Example relabel to scrape only single, desired port for the application
-      # based on application "prometheus.port = <port>" metadata.
-      #  - source_labels: [__address__, __meta_eureka_app_instance_metadata_prometheus_port]
-      #    action: replace
-      #    regex: ([^:]+)(?::\d+)?;(\d+)
-      #    replacement: $1:$2
-      #    target_label: __address__
-      #
-      # application.yaml (spring-boot)
-      # eureka:
-      #  instance:
-      #    metadataMap:
-      #      "prometheus.port": "8080"
+      - source_labels: [__meta_eureka_app_instance_metadata_prometheus_scrape]
+        action: keep
+        regex: true
