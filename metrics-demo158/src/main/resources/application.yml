@@ -2,7 +2,7 @@
 management:
   security:
     enabled: false
-  port: 9999
+#  port: 9999
 #
 ##所有端点关闭，只开放prometheus端点
 #endpoints:
@@ -24,11 +24,12 @@ eureka:
       # 设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址
       # 单机
       defaultZone: http://eureka7001.com:7001/eureka/
-  instance:
-    metadata-map:
-      "prometheus.scrape": "true"
-      "prometheus.path": "/prometheus"
-      "prometheus.port": "9999"
+#  instance:
+#    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+#    prefer-ip-address: true
+  #      "prometheus.scrape": "true"
+#      "prometheus.path": "/prometheus"
+#      "prometheus.port": "9999"
   # 相互注册
 #      defaultZone: http://eureka7002.com:7002/eureka/
 # http://127.0.0.1:9999/prometheus
